@@ -1,0 +1,24 @@
+# 依赖与构建产物
+node_modules/
+dist/
+releases/
+
+# 旧的打包文件
+dist.zip
+*.zip
+
+# 系统 / 编辑器
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 日志
+npm-debug.log*
+*.log
+
+# 个人发布操作笔记（含账号/费用等，不公开）
+发布指南.md
+
+# 图标源图（大图，非扩展实际使用）
+icons/*-*-*-*-*.png

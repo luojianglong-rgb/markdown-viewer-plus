@@ -1,0 +1,27 @@
+{
+  "name": "markdown-viewer-plus",
+  "version": "1.2.0",
+  "private": true,
+  "description": "Chrome/Edge 扩展：打开本地 .md 文件即自动渲染（代码高亮、公式、Mermaid 图表、目录、深色模式）。",
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "pack": "node pack.mjs"
+  },
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "@vscode/markdown-it-katex": "^1.1.2",
+    "highlight.js": "^11.10.0",
+    "katex": "^0.17.0",
+    "markdown-it": "^14.1.0",
+    "markdown-it-emoji": "^3.0.0",
+    "markdown-it-footnote": "^4.0.0",
+    "markdown-it-task-lists": "^2.1.1",
+    "mermaid": "^11.16.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.23.0"
+  }
+}
