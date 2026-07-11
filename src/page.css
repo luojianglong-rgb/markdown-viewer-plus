@@ -1,0 +1,150 @@
+:root {
+  --bg: #ffffff; --fg: #1f2328; --muted: #656d76; --border: #d0d7de;
+  --sidebar-bg: #f6f8fa; --accent: #0969da; --code-bg: #f6f8fa; --pre-bg: #0d1117;
+  --pre-fg: #c9d1d9; --radius: 6px; --topbar-h: 44px;
+}
+body[data-theme="dark"] {
+  --bg: #0d1117; --fg: #e6edf3; --muted: #8b949e; --border: #30363d;
+  --sidebar-bg: #161b22; --accent: #58a6ff; --code-bg: #161b22; --pre-bg: #010409;
+  --pre-fg: #c9d1d9;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; height: 100%; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", Helvetica, Arial, sans-serif;
+  font-size: 15px; line-height: 1.6;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* 顶栏 */
+#mdv-topbar {
+  position: sticky; top: 0; z-index: 10;
+  height: var(--topbar-h); display: flex; align-items: center; gap: 10px;
+  padding: 0 14px; background: var(--sidebar-bg); border-bottom: 1px solid var(--border);
+}
+.mdv-brand { font-weight: 600; white-space: nowrap; }
+.mdv-file {
+  color: var(--muted); font-size: 13px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 40%;
+}
+.mdv-spacer { flex: 1; }
+.mdv-btn {
+  border: 1px solid var(--border); background: var(--bg); color: var(--fg);
+  border-radius: var(--radius); padding: 4px 10px; cursor: pointer; font-size: 13px;
+}
+.mdv-btn:hover { background: var(--sidebar-bg); }
+
+/* 布局：正文 + 右侧目录 */
+#mdv-layout { display: flex; align-items: flex-start; }
+#mdv-main {
+  flex: 1; min-width: 0; padding: 32px 24px 120px;
+}
+.markdown-body { max-width: 880px; margin: 0 auto; }
+#mdv-toc {
+  width: 220px; min-width: 220px; flex-shrink: 0; position: sticky; top: var(--topbar-h);
+  align-self: flex-start; max-height: calc(100vh - var(--topbar-h)); overflow-y: auto;
+  padding: 24px 8px 24px 16px; font-size: 13px; border-left: 1px solid var(--border);
+}
+.mdv-toc-title { font-weight: 600; margin-bottom: 8px; color: var(--muted); }
+#mdv-toc ul { list-style: none; padding: 0; margin: 0; }
+#mdv-toc li { margin: 2px 0; }
+#mdv-toc a { color: var(--muted); display: block; padding: 2px 0; }
+#mdv-toc a:hover { color: var(--accent); }
+.mdv-toc-h2 { padding-left: 12px; }
+.mdv-toc-h3 { padding-left: 24px; }
+
+/* 正文 Markdown */
+.markdown-body > *:first-child { margin-top: 0; }
+.markdown-body h1, .markdown-body h2 { border-bottom: 1px solid var(--border); padding-bottom: .3em; }
+.markdown-body h1, .markdown-body h2, .markdown-body h3,
+.markdown-body h4, .markdown-body h5, .markdown-body h6 {
+  margin: 28px 0 12px; font-weight: 600; line-height: 1.25; scroll-margin-top: calc(var(--topbar-h) + 8px);
+}
+.markdown-body h1 { font-size: 2em; }
+.markdown-body h2 { font-size: 1.5em; }
+.markdown-body h3 { font-size: 1.25em; }
+.markdown-body p { margin: 12px 0; }
+.markdown-body ul, .markdown-body ol { margin: 12px 0; padding-left: 2em; }
+.markdown-body li { margin: 4px 0; }
+.markdown-body blockquote {
+  margin: 12px 0; padding: 4px 16px; color: var(--muted);
+  border-left: 4px solid var(--border); background: var(--sidebar-bg);
+}
+.markdown-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: .88em; background: var(--code-bg); padding: .2em .4em; border-radius: 4px;
+}
+.markdown-body pre {
+  margin: 16px 0; padding: 16px; background: var(--pre-bg);
+  border-radius: 8px; overflow: auto; line-height: 1.5;
+}
+.markdown-body pre code { background: transparent; padding: 0; font-size: .85em; color: var(--pre-fg); }
+.markdown-body table { border-collapse: collapse; margin: 16px 0; display: block; overflow: auto; }
+.markdown-body th, .markdown-body td { border: 1px solid var(--border); padding: 6px 13px; }
+.markdown-body th { background: var(--sidebar-bg); font-weight: 600; }
+.markdown-body tr:nth-child(2n) { background: var(--sidebar-bg); }
+.markdown-body img { max-width: 100%; }
+.markdown-body hr { border: none; border-top: 2px solid var(--border); margin: 28px 0; }
+.markdown-body kbd {
+  font-family: ui-monospace, monospace; background: var(--sidebar-bg);
+  border: 1px solid var(--border); border-bottom-width: 2px; border-radius: 4px;
+  padding: 2px 6px; font-size: .85em;
+}
+
+/* 任务列表 */
+.markdown-body .task-list-item { list-style: none; }
+.markdown-body .task-list-item input[type="checkbox"] { margin: 0 .5em 0 -1.4em; vertical-align: middle; }
+
+/* 脚注 */
+.markdown-body .footnotes { font-size: .9em; color: var(--muted); border-top: 1px solid var(--border); margin-top: 40px; padding-top: 12px; }
+.markdown-body .footnotes ol { padding-left: 1.5em; }
+.markdown-body sup { font-size: .75em; vertical-align: super; }
+
+/* Mermaid */
+.mdv-mermaid {
+  text-align: center; margin: 20px 0; padding: 16px;
+  background: var(--sidebar-bg); border: 1px solid var(--border);
+  border-radius: 8px; overflow-x: auto;
+}
+.mdv-mermaid svg { max-width: 100%; height: auto; }
+.mdv-mermaid-error {
+  text-align: left; background: #fff8f0; border-color: #d1242f;
+}
+body[data-theme="dark"] .mdv-mermaid-error { background: #2d1618; }
+.mdv-mermaid-msg { color: #cf222e; font-size: 13px; margin-bottom: 8px; font-weight: 600; }
+body[data-theme="dark"] .mdv-mermaid-msg { color: #ff7b72; }
+.mdv-mermaid-raw {
+  margin: 0; padding: 12px; background: var(--pre-bg); color: var(--pre-fg);
+  border-radius: 6px; overflow: auto; font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 12px; white-space: pre; text-align: left;
+}
+
+/* 源码视图 */
+.mdv-raw {
+  background: var(--pre-bg); color: var(--pre-fg); padding: 16px; border-radius: 8px;
+  overflow: auto; font-family: ui-monospace, Menlo, Consolas, monospace;
+  font-size: 13px; white-space: pre-wrap; word-break: break-word;
+}
+
+/* 帮助页 */
+.mdv-help { max-width: 640px; }
+.mdv-help h1 { margin-top: 0; }
+.mdv-err { color: #cf222e; background: #ffebe9; padding: 10px 14px; border-radius: 6px; }
+.mdv-help code { background: var(--code-bg); padding: .2em .4em; border-radius: 4px; font-family: ui-monospace, monospace; }
+.mdv-help ol { line-height: 1.9; }
+
+/* 滚动条 */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: #c0c6cc; border-radius: 6px; border: 2px solid transparent; background-clip: content-box; }
+
+/* 响应式：窄屏隐藏目录 */
+@media (max-width: 980px) {
+  #mdv-toc { display: none !important; }
+}
+@media (max-width: 720px) {
+  .markdown-body { padding: 0; }
+  #mdv-main { padding: 24px 16px 80px; }
+}
