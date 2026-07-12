@@ -285,6 +285,14 @@ function fetchViaBackground(url) {
 
 (async () => {
   if (!MD_EXT.test(location.pathname)) return;
+
+  // 防重复注入：若装了多份本扩展（如本地解压版 + 商店版），
+  // 两份 content.js 会同时改写同一页面 —— 第一份已把页面替换成渲染结果，
+  // 第二份再跑会读到已渲染的 HTML 而非原始 Markdown，导致二次处理出错。
+  // 内容脚本运行在隔离世界，window 变量不共享，故用 DOM 上的标记来跨脚本判重。
+  if (document.documentElement.hasAttribute('data-mdv-rendered')) return;
+  document.documentElement.setAttribute('data-mdv-rendered', '1');
+
   let raw = readRawFromDom();
   if (!raw) {
     const resp = await fetchViaBackground(location.href);
