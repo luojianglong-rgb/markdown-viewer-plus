@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Markdown Viewer Plus",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "打开本地 .md 文件即自动渲染：代码高亮、表格、任务列表、脚注、数学公式、Mermaid 图表、目录、深色模式。",
   "permissions": ["storage"],
   "host_permissions": ["file:///*"],

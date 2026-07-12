@@ -1,6 +1,6 @@
 {
   "name": "markdown-viewer-plus",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": true,
   "description": "Chrome/Edge 扩展：打开本地 .md 文件即自动渲染（代码高亮、公式、Mermaid 图表、目录、深色模式）。",
   "type": "module",

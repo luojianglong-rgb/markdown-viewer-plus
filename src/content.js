@@ -10,6 +10,13 @@ import hljsCss from 'highlight.js/styles/github-dark.css';
 
 const ALL_CSS = pageCss + '\n' + hljsCss;
 
+// 归一化插件导出：有些包（如 @vscode/markdown-it-katex）在 ESM/CJS 互操作下
+// 默认导出会变成 { default: fn }，而 markdown-it.use() 要求传入函数本身，
+// 否则内部 plugin.apply(...) 会抛 "apply is not a function"。
+function asPlugin(m) {
+  return typeof m === 'function' ? m : (m && typeof m.default === 'function' ? m.default : m);
+}
+
 const md = new MarkdownIt({
   html: true,
   linkify: true,
@@ -30,10 +37,10 @@ const md = new MarkdownIt({
     return '<pre class="hljs"><code>' + md.utils.escapeHtml(str) + '</code></pre>';
   }
 })
-  .use(taskLists)
-  .use(emoji)
-  .use(footnote)
-  .use(katexPlugin, { throwOnError: false });
+  .use(asPlugin(taskLists))
+  .use(asPlugin(emoji))
+  .use(asPlugin(footnote))
+  .use(asPlugin(katexPlugin), { throwOnError: false });
 
 const MD_EXT = /\.(md|markdown|mdown|mkd|mdwn)$/i;
 
