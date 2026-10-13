@@ -267,6 +267,20 @@ function readRawFromDom() {
   return '';
 }
 
+// 判断当前页面是否为「纯 Markdown 源码」页（浏览器展示 .md 源文本时，body 基本就是
+// 一个 <pre>，或干脆是纯文本）。而站点已渲染好的网页（如 GitHub/Gitee 的 blob 页，
+// URL 虽以 .md 结尾）body 里有导航/链接等大量元素，pre 只是零星代码片段。
+// 用 pre 文本占 body 文本的比例区分二者：纯源码 ≈ 100%，已渲染页远低于此。
+function isPlainSourcePage() {
+  const body = document.body;
+  if (!body) return false;
+  const totalLen = (body.textContent || '').length;
+  if (totalLen === 0) return false; // 空页不接管
+  const pre = document.querySelector('pre');
+  const preLen = pre ? (pre.textContent || '').length : 0;
+  return preLen / totalLen >= 0.9;
+}
+
 function fetchViaBackground(url) {
   return new Promise((resolve) => {
     try {
@@ -292,6 +306,10 @@ function fetchViaBackground(url) {
   // 内容脚本运行在隔离世界，window 变量不共享，故用 DOM 上的标记来跨脚本判重。
   if (document.documentElement.hasAttribute('data-mdv-rendered')) return;
   document.documentElement.setAttribute('data-mdv-rendered', '1');
+
+  // 只接管「纯 Markdown 源码」页面。在线场景下若网址是某个已渲染好的网页
+  // （如 GitHub/gitee 的 blob 页），不要破坏它，直接跳过。
+  if (!isPlainSourcePage()) return;
 
   let raw = readRawFromDom();
   if (!raw) {
