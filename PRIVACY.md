@@ -1,6 +1,6 @@
 # 隐私政策 · Privacy Policy — Markdown Viewer Plus
 
-_最后更新：2026-10-13_
+_最后更新：2026-10-14_
 
 ## 中文
 
@@ -10,9 +10,17 @@ _最后更新：2026-10-13_
 **不收集任何数据。** 本扩展不收集、不存储、不传输任何个人信息或使用数据。
 
 ### 数据如何处理
-- 本扩展仅在你主动打开 `.md`（及 `.markdown`/`.mdown`/`.mkd`/`.mdwn`）文件时运行，包括本地文件与在线源代码地址。
-- 所有 Markdown 解析与渲染均在**你的浏览器本地**完成，内容只会发送给——你正在看的那个 `.md` 文件所在的服务端（仅当它来自在线地址时，此请求即你主动访问该 URL 本身），**不上传到任何本扩展的服务器**。
-- 在线渲染时，本扩展**只读取该 `.md` 地址的内容用于渲染**；若网页已是站点渲染好的形式（如 GitHub/Gitee blob 页），扩展会**自动跳过、不读取其页面结构**。
+**本地文件场景（`file://`）**
+- 你打开本地 `.md`（及 `.markdown`/`.mdown`/`.mkd`/`.mdwn`）文件时，扩展读取该文件内容并在**你的浏览器本地**完成解析与渲染。
+- 此过程**全程不联网**：内容不会上传、不会离开你的设备。
+
+**在线场景（`http(s)://`）**
+- 你在地址栏主动访问在线 `.md` 源代码地址时，扩展会通过自身的后台代理重新读取**你当前正看的那个 `.md` 地址**的原始文本，用于渲染。
+- 这一读取请求与你直接在地址栏打开该链接**指向的是同一个目标服务器**（即该 `.md` 所在站点），且**以不缓存方式发起（`cache: no-store`）、不做任何本地缓存**，更**不会上传到本扩展的任何服务器**。
+- 扩展**只读取该 `.md` 地址的内容**用于渲染；若网页已是站点渲染好的形式（如 GitHub/Gitee blob 页），扩展会**自动跳过、不读取其页面结构**。
+- Markdown 正文里的相对链接与相对图片，其引用仍指向该 `.md` 所在站点——若你点击跳转或浏览器加载这些相对资源，请求也仅发往该站点。
+
+**通用承诺**
 - 本扩展**不含分析、遥测、广告或更新回传**。
 - 唯一的本地存储是你的**主题偏好**（浅色/深色），通过浏览器 `chrome.storage.local` 保存，仅存于你本机、不上传。
 
@@ -41,9 +49,17 @@ _最后更新：2026-10-13_
 **None.** The Extension does not collect, store, or transmit any personal information or usage data.
 
 ### How Data Is Handled
-- The Extension runs only when you open a `.md` (or `.markdown`/`.mdown`/`.mkd`/`.mdwn`) file — whether local or an online source URL.
-- All Markdown parsing and rendering happens **locally in your browser**. Content is sent only to the server hosting the `.md` file you are viewing (for online files — that is the same request your direct visit makes), and **never to the Extension's own servers**.
-- For online files, the Extension **reads only that `.md` URL's content** for rendering. If the page is already a rendered site (e.g. GitHub/Gitee blob pages), the Extension **skips it without reading the page structure**.
+**Local files (`file://`)**
+- When you open a local `.md` (or `.markdown`/`.mdown`/`.mkd`/`.mdwn`) file, the Extension reads that file's content and parses/renders it **entirely in your browser, locally**.
+- This process is **fully offline** — content is not uploaded and never leaves your device.
+
+**Online files (`http(s)://`)**
+- When you open an online `.md` source URL in the address bar, the Extension re-fetches the raw text of **that same `.md` URL you are viewing** through its own background proxy, in order to render it.
+- This read request points to **the same destination server as if you had opened that link directly** (i.e. the site hosting the `.md`), is made **without caching (`cache: no-store`), stores nothing locally**, and is **never sent to any server of the Extension's own**.
+- The Extension **reads only that `.md` URL's content** for rendering. If the page is already a rendered site (e.g. GitHub/Gitee blob pages), the Extension **skips it without reading the page structure**.
+- Relative links and images in the Markdown still point to the site hosting the `.md` — if you click them or the browser loads those relative resources, the requests likewise go only to that site.
+
+**General commitments**
 - The Extension has **no analytics, telemetry, ads, or update callbacks**.
 - The only local storage is your **theme preference** (light/dark), saved via `chrome.storage.local` on your machine and never uploaded.
 
